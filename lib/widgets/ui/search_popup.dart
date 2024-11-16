@@ -24,7 +24,10 @@ class _MyDialogState extends State<MyDialog> {
         widget.unstartedGoals.where((element) => element[11] == false).toList();
 
     return AlertDialog(
-      title: const Text('Search projects'),
+      title: const Text(
+        'Search projects',
+        style: TextStyle(color: Colors.black),
+      ),
       content: SizedBox(
         height: 150,
         child: Column(children: [
@@ -36,7 +39,10 @@ class _MyDialogState extends State<MyDialog> {
                   isSwitched = value;
                 }),
               ),
-              isSwitched ? const Text('Privates') : const Text('Publics'),
+              Text(
+                isSwitched ? 'Privates' : 'Publics',
+                style: TextStyle(color: Colors.black),
+              )
             ],
           ),
           TextFormField(
@@ -66,13 +72,14 @@ class _MyDialogState extends State<MyDialog> {
                     .toList();
               }
             }),
+            style: const TextStyle(color: Colors.black),
           ),
           const SizedBox(height: 10),
           isSwitched
               ? const Expanded(
                   child: Text(
                     'To find private projects, search for the project creator\'s public key (can be found on the project creator\'s profile)',
-                    style: TextStyle(fontSize: 10),
+                    style: TextStyle(fontSize: 10, color: Colors.black),
                     overflow: TextOverflow.clip,
                   ),
                 )

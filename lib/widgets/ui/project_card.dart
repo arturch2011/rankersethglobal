@@ -94,7 +94,7 @@ class _ProjectCardState extends State<ProjectCard> {
                               fit: BoxFit.cover,
                               height: 150,
                               width: double.infinity)
-                          : Image.asset('assets/images/splash_image2.png',
+                          : Image.asset('assets/images/logorankers.png',
                               fit: BoxFit.cover,
                               height: 150,
                               width: double.infinity),
@@ -128,8 +128,11 @@ class _ProjectCardState extends State<ProjectCard> {
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(Icons.access_time_rounded,
-                                        size: 15),
+                                    const Icon(
+                                      Icons.access_time_rounded,
+                                      size: 15,
+                                      color: Colors.white,
+                                    ),
                                     Text(
                                       '${timer.toStringAsFixed(0)}d',
                                       style: const TextStyle(

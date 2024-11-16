@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rankers/widgets/ui/main_card.dart';
+import 'package:rankersethglobal/widgets/ui/main_card.dart';
 
 class MyGoalsList extends StatelessWidget {
   final List<dynamic> myGoals;
@@ -21,6 +21,7 @@ class MyGoalsList extends StatelessWidget {
               MainCard(
                 index: myGoals[index][0].toInt(),
               ),
+              SizedBox(height: 10),
             ]);
           },
         ),

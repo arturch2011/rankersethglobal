@@ -46,13 +46,14 @@ class _MainCardState extends State<MainCard> {
     }
 
     Future<void> getInfos() async {
-      int progress = await block.getMyProgress(BigInt.from(index)).toInt();
+      BigInt bigprogress = await block.getMyProgress(BigInt.from(index));
+      int progress = bigprogress.toInt();
+      print("aaaaaaaaaaaaaaaaaaaaaaaaa $progress");
       BigInt bet = await block.getMyBets(BigInt.from(index));
       double totalProgress = progress / totalMeta;
-      setState(() {
-        progressValue = totalProgress;
-        myBet = bet / BigInt.from(10).pow(18);
-      });
+
+      progressValue = totalProgress;
+      myBet = bet / BigInt.from(10).pow(18);
     }
 
     return Container(
@@ -109,7 +110,7 @@ class _MainCardState extends State<MainCard> {
                         child: CircularProgressIndicator(),
                       );
                     } else if (snapshot.hasError) {
-                      return const Text('Error');
+                      return Text(snapshot.error.toString());
                     } else {
                       return Row(children: [
                         BuildProgressIndicator(

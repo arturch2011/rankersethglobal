@@ -32,7 +32,8 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Center(
-              child: Text('No projects found'),
+              child: Text('No projects found',
+                  style: TextStyle(color: Colors.black)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -108,64 +109,75 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                               }
                             }
 
-                            return Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      category,
-                                      style: const TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    GestureDetector(
-                                      onTap: () => {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) {
-                                              return AllProjectsScreen(
-                                                goalsList: categoryList,
-                                                title: "$category Projects",
-                                              );
-                                            },
-                                          ),
-                                        )
-                                      },
-                                      child: const Text(
-                                        'See more',
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          color:
-                                              Color.fromRGBO(156, 156, 156, 1),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 10, 0, 20),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            return categoryList.isEmpty
+                                ? SizedBox(
+                                    height:
+                                        index == categories.length - 1 ? 80 : 0,
+                                  )
+                                : Column(
                                     children: [
-                                      ProjectCard(
-                                        index: goalsIndex,
+                                      Row(
+                                        children: [
+                                          Text(
+                                            category,
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black),
+                                          ),
+                                          const Spacer(),
+                                          GestureDetector(
+                                            onTap: () => {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return AllProjectsScreen(
+                                                      goalsList: categoryList,
+                                                      title:
+                                                          "$category Projects",
+                                                    );
+                                                  },
+                                                ),
+                                              )
+                                            },
+                                            child: const Text(
+                                              'See more',
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                color: Color.fromRGBO(
+                                                    156, 156, 156, 1),
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(width: 10),
-                                      ProjectCard(
-                                        index: goalsIndex2,
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 10, 0, 20),
+                                        child: goalsIndex2 != -1
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  ProjectCard(
+                                                    index: goalsIndex,
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  ProjectCard(
+                                                    index: goalsIndex2,
+                                                  ),
+                                                ],
+                                              )
+                                            : ProjectCard(
+                                                index: goalsIndex,
+                                              ),
                                       ),
+                                      if (index == categories.length - 1)
+                                        const SizedBox(height: 80),
                                     ],
-                                  ),
-                                ),
-                                if (index == categories.length - 1)
-                                  const SizedBox(height: 80),
-                              ],
-                            );
+                                  );
                           }),
                     ),
                   ],
@@ -173,7 +185,7 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
       }
     } else {
       return const Center(
-        child: Text('No projects found'),
+        child: Text('No projects found', style: TextStyle(color: Colors.black)),
       );
     }
   }

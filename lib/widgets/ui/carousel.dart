@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final List<String> imgList = [
-  'assets/images/ethcover.png',
   'assets/images/bangkoknft.jpg',
+  'assets/images/ethcover.png',
 ];
 
 final List<Widget> imageSliders = imgList

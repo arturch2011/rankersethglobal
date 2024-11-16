@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 // import 'package:goals_ethglobal/screens/wallet_screen.dart';
 
@@ -7,7 +8,10 @@ class LoadingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AlertDialog(
-      title: Text('Carregando...'),
+      title: Text(
+        'Loading...',
+        style: TextStyle(color: Colors.black),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -20,15 +24,27 @@ class LoadingDialog extends StatelessWidget {
 
 class AlertDialogCheck extends StatelessWidget {
   final String text;
-  const AlertDialogCheck({super.key, required this.text});
+  final String? link;
+  const AlertDialogCheck({super.key, required this.text, this.link});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Center(child: Text(text)),
-      content: const Column(
+      title: Center(child: Text(text, style: TextStyle(color: Colors.black))),
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (link != null)
+            TextButton(
+                onPressed: () {
+                  FlutterClipboard.copy(link!).then((value) {
+                    const snackBar = SnackBar(
+                      content: Text('Copied to clipboard!'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
+                },
+                child: Text("Copy transaction link")),
           Icon(
             Icons.check_circle_outline,
             color: Colors.green,
@@ -41,7 +57,7 @@ class AlertDialogCheck extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Fechar'),
+          child: const Text('Close'),
         ),
       ],
     );
@@ -57,14 +73,14 @@ class ErrorDialog extends StatelessWidget {
     String error = text;
     if (text.contains('insufficient funds') ||
         text.contains('required exceeds')) {
-      error = 'Saldo insuficiente !';
+      error = 'Insufficient funds !';
     } else if (text.contains('greater than minimum')) {
-      error = 'O valor é menor que a aposta mínima !';
+      error = 'Your bet is bellow the minimum !';
     } else if (text.contains('payment flow')) {
-      error = 'Operaçao cancelada !';
+      error = 'Operation canceled !';
     }
     return AlertDialog(
-      title: Center(child: Text(error)),
+      title: Center(child: Text(error, style: TextStyle(color: Colors.black))),
       content: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -80,7 +96,7 @@ class ErrorDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Fechar'),
+          child: const Text('Close'),
         ),
         error.contains('insuficiente')
             ? TextButton(
@@ -95,21 +111,21 @@ class ErrorDialog extends StatelessWidget {
                   // );
                 },
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(16.0), // Raio dos cantos
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                     Theme.of(context).primaryColor,
                   ),
-                  padding: MaterialStateProperty.all(
+                  padding: WidgetStateProperty.all(
                     const EdgeInsets.all(5),
                   ),
                 ),
-                child: const Text('Recarregar',
-                    style: TextStyle(color: Colors.white)),
+                child: const Text('Recharge',
+                    style: TextStyle(color: Colors.black)),
               )
             : const SizedBox(),
       ],
@@ -129,11 +145,14 @@ void hideLoadingDialog(BuildContext context) {
   Navigator.pop(context);
 }
 
-void showCheckDialog(BuildContext context, info) {
+void showCheckDialog(BuildContext context, info, String? link) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (context) => AlertDialogCheck(text: info),
+    builder: (context) => AlertDialogCheck(
+      text: info,
+      link: link,
+    ),
   );
 }
 
