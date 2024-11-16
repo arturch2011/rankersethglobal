@@ -7,7 +7,10 @@ class LoadingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AlertDialog(
-      title: Text('Carregando...'),
+      title: Text(
+        'Loading...',
+        style: TextStyle(color: Colors.black),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -25,7 +28,7 @@ class AlertDialogCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Center(child: Text(text)),
+      title: Center(child: Text(text, style: TextStyle(color: Colors.black))),
       content: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -41,7 +44,7 @@ class AlertDialogCheck extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Fechar'),
+          child: const Text('Close'),
         ),
       ],
     );
@@ -57,14 +60,14 @@ class ErrorDialog extends StatelessWidget {
     String error = text;
     if (text.contains('insufficient funds') ||
         text.contains('required exceeds')) {
-      error = 'Saldo insuficiente !';
+      error = 'Insufficient funds !';
     } else if (text.contains('greater than minimum')) {
-      error = 'O valor é menor que a aposta mínima !';
+      error = 'Your bet is bellow the minimum !';
     } else if (text.contains('payment flow')) {
-      error = 'Operaçao cancelada !';
+      error = 'Operation canceled !';
     }
     return AlertDialog(
-      title: Center(child: Text(error)),
+      title: Center(child: Text(error, style: TextStyle(color: Colors.black))),
       content: const Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -80,7 +83,7 @@ class ErrorDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text('Fechar'),
+          child: const Text('Close'),
         ),
         error.contains('insuficiente')
             ? TextButton(
@@ -95,21 +98,21 @@ class ErrorDialog extends StatelessWidget {
                   // );
                 },
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(16.0), // Raio dos cantos
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                     Theme.of(context).primaryColor,
                   ),
-                  padding: MaterialStateProperty.all(
+                  padding: WidgetStateProperty.all(
                     const EdgeInsets.all(5),
                   ),
                 ),
-                child: const Text('Recarregar',
-                    style: TextStyle(color: Colors.white)),
+                child: const Text('Recharge',
+                    style: TextStyle(color: Colors.black)),
               )
             : const SizedBox(),
       ],

@@ -91,7 +91,31 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+      - family: Epilogue
+        fonts:
+            - asset: assets/fonts/Epilogue-Light.ttf
+            - asset: assets/fonts/Epilogue-Regular.ttf
+            - asset: assets/fonts/Epilogue-Bold.ttf
+              weight: 700
+      - family: Outfit
+        fonts:
+            - asset: assets/fonts/Outfit-Light.ttf
+            - asset: assets/fonts/Outfit-Regular.ttf
+            - asset: assets/fonts/Outfit-Bold.ttf
+              weight: 700
+      - family: Ovo
+        fonts:
+            - asset: assets/fonts/Ovo-Regular.ttf
+              weight: 700
+      - family: PressStart2P
+        fonts:
+            - asset: assets/fonts/PressStart2P-Regular.ttf
+              weight: 700
+      - family: MPLUSCodeLatin
+        fonts:
+            - asset: assets/fonts/MPLUSCodeLatin-Regular.ttf
+              weight: 700
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

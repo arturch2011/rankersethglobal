@@ -12,20 +12,29 @@ class LoginScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      "assets/images/login_image.jpg"), // Substitua 'imagem.jpg' pela imagem desejada.
-                  fit: BoxFit.cover,
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 100),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/logorankers.png',
+                      width: 100,
+                      height: 100,
+                    ),
+                    Text(
+                      "RANKERS",
+                      style: TextStyle(fontSize: 36, color: Colors.black),
+                    ),
+                  ],
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Log In",

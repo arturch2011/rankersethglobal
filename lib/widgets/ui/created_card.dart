@@ -66,143 +66,164 @@ class _CreatedCardState extends State<CreatedCard> {
     final String frequency = goals[4];
     final String fname = utility.getFrequencyName(frequency);
 
-    return Column(children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              title,
-              overflow: TextOverflow.ellipsis,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        border: Border.all(
+          color: Colors.black,
+          width: 2,
+        ),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              '$meta $metaType per $fname', // Valor do progresso (substitua pelo valor real)
               style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
             ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Text(
-            '$meta $metaType per $fname', // Valor do progresso (substitua pelo valor real)
-            style: const TextStyle(
-              fontSize: 16,
+            const SizedBox(
+              width: 5,
             ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          if (endTimer > 0)
-            Container(
-              child: timer < 0
-                  ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.access_time_rounded, size: 15),
-                            Text(
-                              '${endTimer.toStringAsFixed(0)}d',
-                              style: const TextStyle(
-                                fontSize: 15,
+            if (endTimer > 0)
+              Container(
+                child: timer < 0
+                    ? Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.access_time_rounded,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                '${endTimer.toStringAsFixed(0)}d',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.access_time_rounded,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                '${timer.toStringAsFixed(0)}d',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+              )
+          ],
+        ),
+        const SizedBox(width: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Initial value: \$$preFound', // Valor do progresso (substitua pelo valor real)
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                Text(
+                  'Locked value: \$$totalBet', // Valor do progresso (substitua pelo valor real)
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                Text(
+                  'Total participants: $totalParticipants', // Valor do progresso (substitua pelo valor real)
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                Text(
+                  isPublic
+                      ? 'Public'
+                      : 'Private', // Valor do progresso (substitua pelo valor real)
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+              ],
+            ),
+            endTimer > 0
+                ? timer < 1
+                    ? isStarted
+                        ? const Text('Project started')
+                        : TextButton(
+                            onPressed: () => startGoal(),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                          ],
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.access_time_rounded, size: 15),
-                            Text(
-                              '${timer.toStringAsFixed(0)}d',
-                              style: const TextStyle(
-                                fontSize: 15,
-                              ),
+                            child: const Text(
+                              "Iniciar",
+                              style: TextStyle(color: Colors.white),
                             ),
-                          ],
+                          )
+                    : const Text(
+                        'Whait the initial date to start the project',
+                        style: TextStyle(
+                          fontSize: 10,
                         ),
-                      ],
-                    ),
-            )
-        ],
-      ),
-      const SizedBox(width: 30),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Initial value: \$$preFound', // Valor do progresso (substitua pelo valor real)
-                style: const TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-              Text(
-                'Locked value: \$$totalBet', // Valor do progresso (substitua pelo valor real)
-                style: const TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-              Text(
-                'Total participants: $totalParticipants', // Valor do progresso (substitua pelo valor real)
-                style: const TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-              Text(
-                isPublic
-                    ? 'Public'
-                    : 'Private', // Valor do progresso (substitua pelo valor real)
-                style: const TextStyle(
-                  fontSize: 10,
-                ),
-              ),
-            ],
-          ),
-          endTimer > 0
-              ? timer < 1
-                  ? isStarted
-                      ? const Text('Project started')
-                      : TextButton(
-                          onPressed: () => startGoal(),
-                          style: TextButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                      )
+                : isFinished
+                    ? const Text('Project concluded')
+                    : TextButton(
+                        onPressed: () => endGoal(),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: const Text(
-                            "Iniciar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
-                  : const Text(
-                      'Whait the initial date to start the project',
-                      style: TextStyle(
-                        fontSize: 10,
-                      ),
-                    )
-              : isFinished
-                  ? const Text('Project concluded')
-                  : TextButton(
-                      onPressed: () => endGoal(),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      child: const Text(
-                        "Finalize",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )
-        ],
-      ),
-    ]);
+                        child: const Text(
+                          "Finalize",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
+          ],
+        ),
+      ]),
+    );
   }
 }

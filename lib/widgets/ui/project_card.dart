@@ -128,8 +128,11 @@ class _ProjectCardState extends State<ProjectCard> {
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(Icons.access_time_rounded,
-                                        size: 15),
+                                    const Icon(
+                                      Icons.access_time_rounded,
+                                      size: 15,
+                                      color: Colors.white,
+                                    ),
                                     Text(
                                       '${timer.toStringAsFixed(0)}d',
                                       style: const TextStyle(

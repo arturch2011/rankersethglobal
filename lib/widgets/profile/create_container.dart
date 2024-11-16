@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rankers/screens/create_screen.dart';
-import 'package:rankers/widgets/profile/my_created_list.dart';
-import 'package:rankers/widgets/ui/tab_selector.dart';
+import 'package:rankersethglobal/screens/create_screen.dart';
+import 'package:rankersethglobal/widgets/profile/my_created_list.dart';
+import 'package:rankersethglobal/widgets/ui/tab_selector.dart';
 
 class CreateContainer extends StatefulWidget {
   final List<dynamic> inProgressList;

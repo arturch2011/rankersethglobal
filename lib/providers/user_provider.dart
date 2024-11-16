@@ -81,7 +81,8 @@ class UserProvider extends ChangeNotifier {
 
     Uri redirectUrl;
     if (Platform.isAndroid) {
-      redirectUrl = Uri.parse('rankers://com.example.rankers/auth');
+      redirectUrl =
+          Uri.parse('rankersethglobal://com.example.rankersethglobal/auth');
       // w3a://com.example.w3aflutter/auth
     } else if (Platform.isIOS) {
       redirectUrl = Uri.parse('{bundleId}://openlogin');
@@ -94,8 +95,8 @@ class UserProvider extends ChangeNotifier {
 
     await Web3AuthFlutter.init(Web3AuthOptions(
         clientId:
-            "BBUuPUNEV75vGBVCu56qB3-4jjZNYEW9PNHl4kSJOt6sr8_dgC6G5MUpgSDen8EijeBxQvfJlvPd56p-VDokMl8",
-        network: provid.Network.testnet,
+            "BHVieZyWLqblcCMBm72XuIfH6xnxtD8PAa2XLBKWkfo3MkRVsrQwBYrikM4nJ1Jcht-LapOCExXf9rNeduKy4b8",
+        network: provid.Network.sapphire_devnet,
         sessionTime: 604800,
         redirectUrl: redirectUrl,
         whiteLabel: WhiteLabelData(

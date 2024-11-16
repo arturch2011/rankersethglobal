@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Rankers',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Outfit',
+        fontFamily: 'MPLUSCodeLatin',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 189, 149, 20),
           primary: const Color.fromARGB(255, 189, 149, 20),
@@ -30,11 +30,11 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: const TextTheme(
           titleMedium: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black),
           bodySmall: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black),
           titleLarge: TextStyle(
-              fontWeight: FontWeight.normal, fontSize: 30, color: Colors.white),
+              fontWeight: FontWeight.normal, fontSize: 30, color: Colors.black),
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Color.fromARGB(255, 241, 221, 160),

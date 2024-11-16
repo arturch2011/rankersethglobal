@@ -96,7 +96,7 @@ class BlockchainProvider extends ChangeNotifier {
   final String projectId = dotenv.env['NEXT_PUBLIC_PROJECT_ID']!;
 
   final String _rpcUrl =
-      'https://celo-alfajores.infura.io/v3/4e14c357c03146689a9f7e7f9b01df38';
+      'https://base-sepolia.infura.io/v3/147fb0a1da714235aa6cc639d09020db';
 
   initialSetup() async {
     http.Client httpClient = http.Client();
@@ -192,6 +192,7 @@ class BlockchainProvider extends ChangeNotifier {
           params: [],
           sender: _credentials!.address);
       if (fetchedgoals.isNotEmpty) {
+        print('aaaaaaaaaaaaaaa');
         final List<dynamic> goal = fetchedgoals[0];
         goals = goal;
         unstartedGoals = goal
@@ -256,7 +257,7 @@ class BlockchainProvider extends ChangeNotifier {
         ],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -271,7 +272,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [goalId],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -289,7 +290,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [goalId, bigBet],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -304,7 +305,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [goalId, frequency],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -319,7 +320,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [goalId, participant],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -334,7 +335,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [goalId],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
 
     getGoals();
@@ -377,21 +378,37 @@ class BlockchainProvider extends ChangeNotifier {
   }
 
   getMyGoals() async {
-    myCreatedGoals = await _ethClient!.call(
-        contract: _contract!,
-        function: _myGoals!,
-        params: [],
-        sender: _credentials!.address);
-    return myCreatedGoals[0];
+    try {
+      final fetchedmyCreatedGoals = await _ethClient!.call(
+          contract: _contract!,
+          function: _myGoals!,
+          params: [],
+          sender: _credentials!.address);
+
+      if (fetchedmyCreatedGoals.isNotEmpty) {
+        myCreatedGoals = fetchedmyCreatedGoals[0];
+      }
+      // return fetchedmyCreatedGoals;
+    } catch (e) {
+      print(e);
+    }
   }
 
   getMyEnteredGoals() async {
-    myEnteredGoals = await _ethClient!.call(
-        contract: _contract!,
-        function: _myEnteredGoals!,
-        params: [],
-        sender: _credentials!.address);
-    return myEnteredGoals[0];
+    try {
+      final fetchedmyEnteredGoals = await _ethClient!.call(
+          contract: _contract!,
+          function: _myEnteredGoals!,
+          params: [],
+          sender: _credentials!.address);
+
+      if (fetchedmyEnteredGoals.isNotEmpty) {
+        myEnteredGoals = fetchedmyEnteredGoals[0];
+      }
+      // return fetchedmyEnteredGoals;
+    } catch (e) {
+      print(e);
+    }
   }
 
   approve(EthereumAddress spender, BigInt amount) async {
@@ -405,7 +422,7 @@ class BlockchainProvider extends ChangeNotifier {
           parameters: [spender, amount],
           from: _credentials!.address,
         ),
-        chainId: 44787,
+        chainId: 84532,
       );
 
       TransactionReceipt? receipt;
@@ -441,7 +458,7 @@ class BlockchainProvider extends ChangeNotifier {
         parameters: [to, amountInWei],
         from: _credentials!.address,
       ),
-      chainId: 44787,
+      chainId: 84532,
     );
   }
 

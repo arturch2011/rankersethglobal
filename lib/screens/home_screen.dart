@@ -37,9 +37,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     if (myGoals.isNotEmpty) {
-      if (myGoals[0].isNotEmpty) {
-        lastGoalIndex = myGoals[0][myGoals[0].length - 1].toInt();
-      }
+      lastGoalIndex = myGoals[myGoals.length - 1].toInt();
     }
 
     return SafeArea(
@@ -99,9 +97,9 @@ class HomeScreen extends StatelessWidget {
                           Text(
                             'You May Also Like',
                             style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                         ],
                       ),
