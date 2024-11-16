@@ -170,6 +170,7 @@ contract Rankers {
 
         participantsURI[_goalId][msg.sender].push(_imgaeURI);
         participantsFreq[_goalId][msg.sender] += 1;
+        participantsAutenticatedFreq[_goalId][msg.sender] += 1;
     }
 
     function autenticateFrequency(
