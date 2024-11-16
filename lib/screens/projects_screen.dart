@@ -110,7 +110,10 @@ class _ProjectsScreenState extends State<ProjectsScreen> {
                             }
 
                             return categoryList.isEmpty
-                                ? SizedBox()
+                                ? SizedBox(
+                                    height:
+                                        index == categories.length - 1 ? 80 : 0,
+                                  )
                                 : Column(
                                     children: [
                                       Row(

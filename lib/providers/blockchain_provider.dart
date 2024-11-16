@@ -113,13 +113,13 @@ class BlockchainProvider extends ChangeNotifier {
   }
 
   Future<void> getAbi() async {
-    String abiStringFile =
-        await rootBundle.loadString("artifacts/contracts/Goals.sol/Goals.json");
+    String abiStringFile = await rootBundle
+        .loadString("hardhat/artifacts/contracts/Rankers.sol/Rankers.json");
     var jsonAbi = jsonDecode(abiStringFile);
     _abi = jsonEncode(jsonAbi['abi']);
 
-    String abiStringFileToken = await rootBundle
-        .loadString("artifacts/contracts/GoalsToken.sol/GoalsToken.json");
+    String abiStringFileToken = await rootBundle.loadString(
+        "hardhat/artifacts/contracts/RankersToken.sol/RankersToken.json");
     var jsonAbiToken = jsonDecode(abiStringFileToken);
     _abiToken = jsonEncode(jsonAbiToken['abi']);
 
