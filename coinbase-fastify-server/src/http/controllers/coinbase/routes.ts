@@ -6,7 +6,7 @@ import { transferFunds } from './transfer-funds';
 import { getWalletBalances } from './get-wallet-balance';
 import { addWalletFundUsdc } from './add-wallet-fund-usdc';
 import { onRampBaseEth } from './on-ramp-base-eth';
-import { stake } from './stake-token';
+import { stake } from './staking-eth-holesky/stake-token';
 import { addWalletFundEthHolensky } from './staking-eth-holesky/add-wallet-fund-eth-holenksy';
 import { getStakeWalletBalances } from './staking-eth-holesky/get-wallet-balance';
 
@@ -22,6 +22,6 @@ export async function CoinbaseRoutes(app: FastifyInstance) {
   app.post("/coinbase/get-wallet-balances", getWalletBalances)
 
   app.post("/coinbase/stake/get-wallet-balances", getStakeWalletBalances)
-  app.post("/coinbase/stake", stake)
   app.get("/coinbase/on-ramp-base-eth/:user_address", onRampBaseEth)
+  app.post("/coinbase/stake", stake)
 }
