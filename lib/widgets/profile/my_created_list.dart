@@ -21,6 +21,9 @@ class MyCreatedList extends StatelessWidget {
               CreatedCard(
                 index: myGoals[index][0].toInt(),
               ),
+              SizedBox(
+                height: 10,
+              )
             ]);
           },
         ),
