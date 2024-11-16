@@ -12,7 +12,7 @@ export async function stake(request: FastifyRequest, reply: FastifyReply) {
   let stakeOperation = false
 
   coinbase()
-
+ 
   let userBaseWallet = await Wallet.import(user);
 
   // let balance = await importedWallet.listBalances();
@@ -45,6 +45,10 @@ export async function stake(request: FastifyRequest, reply: FastifyReply) {
     }
 
   const companyHoleskyWallet = await Wallet.import({ walletId: HOLESKY_WALLET_ID ?? '', seed: HOLESKY_WALLET_SEED ?? '' });
+
+  if (!baseTransfer) {
+    return { error: "Failed to transfer funds" }
+  }
 
   // Get the stakeable balance of the wallet.
   const stakeableBalance = await companyHoleskyWallet.stakeableBalance(asset, StakeOptionsMode.PARTIAL);

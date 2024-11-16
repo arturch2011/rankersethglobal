@@ -4,6 +4,7 @@ import { ZodError } from 'zod'
 import { env } from './env'
 import { AppRoutes } from './http/controllers/routes'
 import { CoinbaseRoutes } from './http/controllers/coinbase/routes'
+import { CoinbaseExternalAccountRoutes } from './http/controllers/coinbase/external-accounts/routes'
 // import { CoinbaseRoutes } from './http/controllers/coinbase/routes'
 
 export const app = fastify()
@@ -20,7 +21,7 @@ app.register(fastifyCors, {
 
 app.register(AppRoutes)
 app.register(CoinbaseRoutes)
-
+app.register(CoinbaseExternalAccountRoutes)
 // Ao adicionar o "_" na frente do parâmetro que não vai ser utilizado ou apenas o "_" no lugar do parâmetro, você informa que ele não vai ser utilizado.
 app.setErrorHandler((error, _request, reply) => {
   if (error instanceof ZodError) {
