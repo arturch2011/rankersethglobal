@@ -83,5 +83,5 @@ This project is developed with Flutter using Dart as the main language. Web3Auth
 ## Contracts
 
 base
-* **tk** - 0x7E06..
-* **ranker** - 0x905a..
+* **tk** - 0x0bB0b3bf86776a4bAB597A3A84A9591B13cF9d7a
+* **ranker** - 0xe645681ff7e32D1b8d708DdabFF612FaA3bD2ddD
