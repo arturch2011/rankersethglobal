@@ -84,7 +84,7 @@ class _ConfirmPopState extends State<ConfirmPop> {
                       await http.post(url, headers: headers, body: config);
                   hideLoadingDialog(context);
                   Navigator.of(context).popUntil((route) => route.isFirst);
-                  showCheckDialog(context, 'You are on the project!');
+                  showCheckDialog(context, 'You are on the project!', null);
                 } catch (e) {
                   hideLoadingDialog(context);
                   showErrorDialog(context, e.toString());

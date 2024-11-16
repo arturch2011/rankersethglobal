@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rankersethglobal/providers/blockchain_provider.dart';
 import 'package:rankersethglobal/providers/user_provider.dart';
@@ -13,7 +14,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlockchainProvider block = Provider.of<BlockchainProvider>(context);
+    BlockchainProvider block =
+        Provider.of<BlockchainProvider>(context, listen: true);
     UserProvider auth = Provider.of<UserProvider>(context);
     List<dynamic> myGoals = block.myEnteredGoals;
     List<dynamic> publicGoals = block.publicGoals;
@@ -64,6 +66,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const Spacer(),
                 IconButton(
+                    onPressed: () {
+                      block.getGoals();
+                      block.getMyEnteredGoals();
+                      block.getMyGoals();
+                    },
+                    icon: Icon(Icons.refresh)),
+                IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -73,10 +82,15 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: const Icon(
-                    Icons.menu,
-                    size: 30,
+                  icon: SvgPicture.asset(
+                    'assets/icons/nouns.svg',
+                    width: 36,
+                    // color: Colors.white,
                   ),
+                  // icon: const Icon(
+                  //   Icons.menu,
+                  //   size: 30,
+                  // ),
                 ),
               ],
             ),

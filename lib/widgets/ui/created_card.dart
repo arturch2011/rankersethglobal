@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rankersethglobal/providers/blockchain_provider.dart';
 import 'package:rankersethglobal/services/utility_service.dart';
+import 'package:http/http.dart' as http;
 import 'package:rankersethglobal/widgets/ui/loading_popup.dart';
 
 class CreatedCard extends StatefulWidget {
@@ -13,35 +16,38 @@ class CreatedCard extends StatefulWidget {
 }
 
 class _CreatedCardState extends State<CreatedCard> {
+  Future<String> stake(double amout) async {
+    final amount = amout == 0 ? 0.0001 : amout / 1000000;
+    final url = Uri.parse(
+        'https://rankers-coinbase-server.onrender.com/coinbase/stake');
+    final headers = {'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      "user": {
+        "walletId": "2dd469d2-8105-42a7-b9e8-81e520d47c53",
+        "seed":
+            "61bbe3b2bcd619a560877e934f5813501e73529786f137a993cdc63095569237"
+      },
+      "amount": amount,
+      "asset": "eth"
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      // return jsonDecode(response.body["transactionLink"]);
+      final data = await jsonDecode(response.body);
+      return data['transactionLink'];
+    } catch (error) {
+      throw Exception('Erro ao se comunicar com a API: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     BlockchainProvider block = Provider.of<BlockchainProvider>(context);
     final UtilityService utility = UtilityService();
     final int index = widget.index;
-
-    void startGoal() async {
-      showLoadingDialog(context);
-      try {
-        await block.startGoal(BigInt.from(index));
-        hideLoadingDialog(context);
-        showCheckDialog(context, 'Started with success !');
-      } catch (e) {
-        hideLoadingDialog(context);
-        showErrorDialog(context, e.toString());
-      }
-    }
-
-    void endGoal() async {
-      showLoadingDialog(context);
-      try {
-        await block.completeGoal(BigInt.from(index));
-        hideLoadingDialog(context);
-        showCheckDialog(context, 'Finalized with success !');
-      } catch (e) {
-        hideLoadingDialog(context);
-        showErrorDialog(context, e.toString());
-      }
-    }
+    // final goal = block.goals[index];
+    // final double totalBet = goal[13] / BigInt.from(10).pow(18);
 
     List<dynamic> goals = block.goals[index];
 
@@ -65,6 +71,31 @@ class _CreatedCardState extends State<CreatedCard> {
     final int totalParticipants = goals[15].toInt();
     final String frequency = goals[4];
     final String fname = utility.getFrequencyName(frequency);
+
+    void startGoal() async {
+      showLoadingDialog(context);
+      try {
+        await block.startGoal(BigInt.from(index));
+        String scanLink = await stake(1);
+        hideLoadingDialog(context);
+        showCheckDialog(context, 'Started with success !', scanLink);
+      } catch (e) {
+        hideLoadingDialog(context);
+        showErrorDialog(context, e.toString());
+      }
+    }
+
+    void endGoal() async {
+      showLoadingDialog(context);
+      try {
+        await block.completeGoal(BigInt.from(index));
+        hideLoadingDialog(context);
+        showCheckDialog(context, 'Finalized with success !', null);
+      } catch (e) {
+        hideLoadingDialog(context);
+        showErrorDialog(context, e.toString());
+      }
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -196,7 +227,7 @@ class _CreatedCardState extends State<CreatedCard> {
                               ),
                             ),
                             child: const Text(
-                              "Iniciar",
+                              "Start",
                               style: TextStyle(color: Colors.white),
                             ),
                           )

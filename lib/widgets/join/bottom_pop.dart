@@ -77,6 +77,7 @@ class _BottomPopState extends State<BottomPop> {
                 valorSelecionado = value;
               });
             },
+            style: const TextStyle(color: Colors.black),
             decoration: InputDecoration(
               hintText: 'Another value', // Placeholder
               contentPadding: const EdgeInsets.symmetric(
@@ -99,7 +100,7 @@ class _BottomPopState extends State<BottomPop> {
           Align(
               alignment: Alignment.centerRight,
               child: Text("Minimum bet: \$${widget.minvalue}",
-                  style: const TextStyle(fontSize: 12))),
+                  style: const TextStyle(fontSize: 12, color: Colors.black))),
           const Spacer(),
           SizedBox(
             width: double.infinity,

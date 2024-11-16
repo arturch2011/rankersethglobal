@@ -94,7 +94,7 @@ class _ProjectCardState extends State<ProjectCard> {
                               fit: BoxFit.cover,
                               height: 150,
                               width: double.infinity)
-                          : Image.asset('assets/images/splash_image2.png',
+                          : Image.asset('assets/images/logorankers.png',
                               fit: BoxFit.cover,
                               height: 150,
                               width: double.infinity),

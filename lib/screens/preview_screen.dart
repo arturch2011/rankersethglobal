@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:rankersethglobal/providers/blockchain_provider.dart';
 import 'package:rankersethglobal/providers/user_provider.dart';
 import 'package:rankersethglobal/services/filecoin_service.dart';
+import 'package:rankersethglobal/services/pinata_service.dart';
 import 'package:rankersethglobal/widgets/ui/loading_popup.dart';
 
 class ImagePreviewScreen extends StatelessWidget {
@@ -45,6 +47,8 @@ class ImagePreviewScreen extends StatelessWidget {
     final int dia = DateTime.now().day;
     final photoList = Provider.of<UserProvider>(context);
     BlockchainProvider block = Provider.of<BlockchainProvider>(context);
+    final goal = block.goals[index];
+    final prompt = goal[21];
 
     Future<String> sendFileCoins(String imagePath) async {
       String filePath = imagePath;
@@ -99,18 +103,28 @@ class ImagePreviewScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              const Column(
+              Column(
                 children: [
-                  Center(
-                      child: Text(
-                    "Looks nice!",
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  )),
-                  SizedBox(height: 8), // Espaço entre os textos
-                  Center(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/nouns.svg',
+                        width: 36,
+                        // color: Colors.white,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        "Looks nice!",
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8), // Espaço entre os textos
+                  const Center(
                       child: Text(
                     "To validate the photo, just click “Send”, if not, let's take another one…",
                     textAlign: TextAlign.center,
@@ -131,20 +145,27 @@ class ImagePreviewScreen extends StatelessWidget {
                         showLoadingDialog(context);
 
                         try {
-                          String filecoinHash = await sendFileCoins(imagePath);
-                          bool isValid = await aiValidation(filecoinHash,
-                              'Is that a blue bottle? Respond as true or false. It has to be a real image, not a generated one or animated.');
+                          // String filecoinHash = await sendFileCoins(imagePath);
+                          String pinataHash = await pinFile(imagePath);
+                          String link =
+                              pinataHash.substring(8, pinataHash.length - 26);
+                          final String hash =
+                              pinataHash.substring(42, pinataHash.length - 26);
+                          bool isValid = await aiValidation(hash,
+                              '$prompt Respond as true or false. It has to be a real image, not a generated one or animated.');
 
                           if (isValid) {
                             await block.updateFrequency(
-                                BigInt.from(index), filecoinHash);
+                                BigInt.from(index), link);
+                            // await block.updateFrequency(BigInt.from(index),
+                            //     imagePath.hashCode.toString());
                             photoList.removeItem(index);
                             photoList.addItem(PhotoDate(index, dia));
                             await photoList.savePhotoList();
                             hideLoadingDialog(context);
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);
-                            showCheckDialog(context, 'Success !');
+                            showCheckDialog(context, 'Success !', null);
                           } else {
                             hideLoadingDialog(context);
                             Navigator.of(context)

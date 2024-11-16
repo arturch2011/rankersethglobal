@@ -192,7 +192,6 @@ class BlockchainProvider extends ChangeNotifier {
           params: [],
           sender: _credentials!.address);
       if (fetchedgoals.isNotEmpty) {
-        print('aaaaaaaaaaaaaaa');
         final List<dynamic> goal = fetchedgoals[0];
         goals = goal;
         unstartedGoals = goal
@@ -203,6 +202,7 @@ class BlockchainProvider extends ChangeNotifier {
             .toList();
         publicGoals =
             unstartedGoals.where((element) => element[11] == true).toList();
+        print("bbbbbbbbbbbbbbbbbbb");
       }
     } catch (e) {
       print(e);
@@ -227,6 +227,7 @@ class BlockchainProvider extends ChangeNotifier {
     String typeTarqueFreq,
     BigInt quantity,
     BigInt numFreq,
+    String prompt,
   ) async {
     BigInt bigPreFund = BigInt.from(preFund * 10e17);
     if (bigPreFund > BigInt.zero) {
@@ -254,13 +255,18 @@ class BlockchainProvider extends ChangeNotifier {
           typeTarqueFreq,
           quantity,
           numFreq,
+          prompt
         ],
         from: _credentials!.address,
       ),
       chainId: 84532,
     );
 
-    getGoals();
+    Future.delayed(Duration(seconds: 3), () async {
+      // espera 5 segundos
+      await getGoals();
+      notifyListeners();
+    });
   }
 
   startGoal(BigInt goalId) async {
@@ -275,7 +281,11 @@ class BlockchainProvider extends ChangeNotifier {
       chainId: 84532,
     );
 
-    getGoals();
+    Future.delayed(Duration(seconds: 3), () async {
+      // espera 5 segundos
+      await getMyGoals();
+      notifyListeners();
+    });
   }
 
   enterGoal(BigInt goalId, double bet) async {
@@ -293,7 +303,11 @@ class BlockchainProvider extends ChangeNotifier {
       chainId: 84532,
     );
 
-    getGoals();
+    Future.delayed(Duration(seconds: 3), () async {
+      // espera 5 segundos
+      await getMyEnteredGoals();
+      notifyListeners();
+    });
   }
 
   updateFrequency(BigInt goalId, String frequency) async {
@@ -308,7 +322,11 @@ class BlockchainProvider extends ChangeNotifier {
       chainId: 84532,
     );
 
-    getGoals();
+    Future.delayed(Duration(seconds: 3), () async {
+      // espera 5 segundos
+      await getMyEnteredGoals();
+      notifyListeners();
+    });
   }
 
   autenticateFrequency(BigInt goalId, String participant) async {
@@ -338,7 +356,11 @@ class BlockchainProvider extends ChangeNotifier {
       chainId: 84532,
     );
 
-    getGoals();
+    Future.delayed(Duration(seconds: 3), () async {
+      // espera 5 segundos
+      await getMyGoals();
+      notifyListeners();
+    });
   }
 
   getMyProgress(BigInt goalId) async {

@@ -48,6 +48,7 @@ class _MainCardState extends State<MainCard> {
     Future<void> getInfos() async {
       BigInt bigprogress = await block.getMyProgress(BigInt.from(index));
       int progress = bigprogress.toInt();
+      print("aaaaaaaaaaaaaaaaaaaaaaaaa $progress");
       BigInt bet = await block.getMyBets(BigInt.from(index));
       double totalProgress = progress / totalMeta;
 

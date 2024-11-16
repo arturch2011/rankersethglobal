@@ -71,7 +71,7 @@ class _ActiveScreenState extends State<ActiveScreen> {
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.height / 3,
                     width: double.infinity)
-                : Image.asset('assets/images/splash_image2.png',
+                : Image.asset('assets/images/logorankers.png',
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.height / 3,
                     width: double.infinity),

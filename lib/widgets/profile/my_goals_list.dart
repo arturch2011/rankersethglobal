@@ -21,6 +21,7 @@ class MyGoalsList extends StatelessWidget {
               MainCard(
                 index: myGoals[index][0].toInt(),
               ),
+              SizedBox(height: 10),
             ]);
           },
         ),

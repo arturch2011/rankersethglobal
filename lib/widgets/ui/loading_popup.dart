@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 // import 'package:goals_ethglobal/screens/wallet_screen.dart';
 
@@ -23,15 +24,27 @@ class LoadingDialog extends StatelessWidget {
 
 class AlertDialogCheck extends StatelessWidget {
   final String text;
-  const AlertDialogCheck({super.key, required this.text});
+  final String? link;
+  const AlertDialogCheck({super.key, required this.text, this.link});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(child: Text(text, style: TextStyle(color: Colors.black))),
-      content: const Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (link != null)
+            TextButton(
+                onPressed: () {
+                  FlutterClipboard.copy(link!).then((value) {
+                    const snackBar = SnackBar(
+                      content: Text('Copied to clipboard!'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
+                },
+                child: Text("Copy transaction link")),
           Icon(
             Icons.check_circle_outline,
             color: Colors.green,
@@ -132,11 +145,14 @@ void hideLoadingDialog(BuildContext context) {
   Navigator.pop(context);
 }
 
-void showCheckDialog(BuildContext context, info) {
+void showCheckDialog(BuildContext context, info, String? link) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (context) => AlertDialogCheck(text: info),
+    builder: (context) => AlertDialogCheck(
+      text: info,
+      link: link,
+    ),
   );
 }
 

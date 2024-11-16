@@ -30,6 +30,7 @@ class _CreateScreenState extends State<CreateScreen> {
   final betController = TextEditingController();
   final foundController = TextEditingController();
   final description = TextEditingController();
+  final prompt = TextEditingController();
   String selectedCategory = 'Exercise';
   String selectedFrequency = 'Daily';
   int times = 1;
@@ -269,6 +270,17 @@ class _CreateScreenState extends State<CreateScreen> {
                 minLines: 3,
                 maxLines: null,
               ),
+              const SizedBox(height: 20),
+              const Text('Prompt for AI image analysis',
+                  style: TextStyle(color: Colors.black)),
+              const SizedBox(height: 6),
+              TextFieldInput(
+                textEditingController: prompt,
+                hintText: "e.g., Is this a photo of a cat?",
+                textInputType: TextInputType.text,
+                minLines: 3,
+                maxLines: null,
+              ),
               const SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
@@ -304,10 +316,11 @@ class _CreateScreenState extends State<CreateScreen> {
                           imgList,
                           type,
                           vezesBigInt,
-                          metaBigInt);
+                          metaBigInt,
+                          prompt.text);
                       hideLoadingDialog(context);
                       Navigator.of(context).popUntil((route) => route.isFirst);
-                      showCheckDialog(context, 'Created with success !');
+                      showCheckDialog(context, 'Created with success !', null);
                     } catch (e) {
                       hideLoadingDialog(context);
                       showErrorDialog(context, e.toString());

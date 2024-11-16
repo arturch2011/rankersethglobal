@@ -48,6 +48,7 @@ class TextFieldInput extends StatelessWidget {
       ),
       keyboardType: textInputType,
       obscureText: isPass,
+      style: TextStyle(color: Colors.black),
       validator: (value) {
         if (value!.isEmpty) {
           return 'Informe os dados!';

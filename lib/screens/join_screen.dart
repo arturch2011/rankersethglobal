@@ -51,7 +51,7 @@ class _JoinScreenState extends State<JoinScreen> {
                       fit: BoxFit.cover,
                       height: MediaQuery.of(context).size.height / 3,
                       width: double.infinity)
-                  : Image.asset('assets/images/splash_image2.png',
+                  : Image.asset('assets/images/logorankers.png',
                       fit: BoxFit.cover,
                       height: MediaQuery.of(context).size.height / 3,
                       width: double.infinity),

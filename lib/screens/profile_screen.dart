@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rankersethglobal/providers/blockchain_provider.dart';
 import 'package:rankersethglobal/screens/menu_screen.dart';
@@ -69,10 +70,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       );
                     },
-                    icon: const Icon(
-                      Icons.menu,
-                      size: 30,
+                    icon: SvgPicture.asset(
+                      'assets/icons/nouns.svg',
+                      width: 36,
+                      // color: Colors.white,
                     ),
+                    // icon: const Icon(
+                    //   Icons.menu,
+                    //   size: 30,
+                    // ),
                   ),
                 ],
               ),
