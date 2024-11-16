@@ -1,4 +1,5 @@
 import { coinbase } from "@/http/lib/coinbase";
+import { makeCreateGoalStakingInfoUseCase } from "@/use-cases/factories/make-create-staking-info-use-case";
 import { StakeOptionsMode, Wallet } from "@coinbase/coinbase-sdk";
 import { FastifyReply, FastifyRequest } from "fastify";
 
@@ -7,7 +8,7 @@ const { HOLESKY_WALLET_ID, HOLESKY_WALLET_SEED } = process.env;
 const { BASE_WALLET_ID, BASE_WALLET_SEED } = process.env;
 
 export async function stake(request: FastifyRequest, reply: FastifyReply) {
-  const { user, amount, asset } = request.body as { user: { walletId: string, seed: string }, amount: number, asset: string };
+  const { user, amount, asset, goalId } = request.body as { user: { walletId: string, seed: string }, amount: number, asset: string, goalId: number };
   let baseTransfer = false
   let stakeOperation = false
 
@@ -58,6 +59,15 @@ export async function stake(request: FastifyRequest, reply: FastifyReply) {
   }
 
   const stakingOperation = await companyHoleskyWallet.createStake(amount, asset, StakeOptionsMode.PARTIAL);
+
+  const createGoalStakingInfoUseCase = makeCreateGoalStakingInfoUseCase()
+  const { goalStakingInfo } = await createGoalStakingInfoUseCase.execute({
+    goal_id: goalId,
+    staked_amount: amount,
+    asset,
+    chain: 'eth-holesky',
+    transaction_link: stakingOperation.getTransactions()[0].getTransactionLink(),
+  })
 
   return {
     result: {
